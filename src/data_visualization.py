@@ -63,5 +63,29 @@ def visualize_data(datos_creditos: str = "data/raw/datos_creditos.csv",
     ##################################################################################
 
 
+    # Gráfico adicional 1: Distribución de ingresos según mora
+    plt.figure(figsize=(10, 6))
+    sns.boxplot(x='falta_pago', y='ingresos', data=df_creditos)
+    plt.title('Distribución de ingresos según situación de mora')
+    plt.xlabel('¿Presentó mora el cliente?')
+    plt.ylabel('Ingresos')
+    plt.savefig(output_dir / 'ingresos_por_mora.png')
+    plt.close()
+
+    # Gráfico adicional 2: Relación entre ingresos y tasa de interés
+    plt.figure(figsize=(10, 6))
+    sns.scatterplot(
+        x='ingresos',
+        y='tasa_interes',
+        hue='falta_pago',
+        data=df_creditos
+    )
+    plt.title('Relación entre ingresos, tasa de interés y mora')
+    plt.xlabel('Ingresos')
+    plt.ylabel('Tasa de interés')
+    plt.savefig(output_dir / 'ingresos_tasa_mora.png')
+    plt.close()
+
+
 if __name__ == "__main__":
     visualize_data()

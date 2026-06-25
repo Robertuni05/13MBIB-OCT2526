@@ -13,8 +13,8 @@ stages:
       size: 845190
     - path: src/data_visualization.py
       hash: md5
-      md5: a20ce84b51e0a2f1b02aaecaea7eb339
-      size: 2637
+      md5: deffbf70f764dc9db39567ce6110c21e
+      size: 3469
     outs:
     - path: docs/figures/correlation_heatmap_creditos.png
       hash: md5
@@ -24,6 +24,14 @@ stages:
       hash: md5
       md5: a58da1be7b3a1ed4b2d928ca90923e65
       size: 52584
+    - path: docs/figures/ingresos_por_mora.png
+      hash: md5
+      md5: a7dbf7efc0a8ba6c561d92db8e21da1d
+      size: 26006
+    - path: docs/figures/ingresos_tasa_mora.png
+      hash: md5
+      md5: ba86a7338e06ec9b52fe2c9912ac4fbb
+      size: 165385
     - path: docs/figures/target_distribution.png
       hash: md5
       md5: 4fdb2a837bf1f2e1f6fa5ca95ac99834
