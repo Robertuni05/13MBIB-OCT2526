@@ -5,8 +5,8 @@ stages:
     deps:
     - path: data/raw/datos_creditos.csv
       hash: md5
-      md5: e00e42eaae0230048eacde3f7cee4489
-      size: 589464
+      md5: 3b26edd22e8827f890d7cd32efe475b7
+      size: 663047
     - path: data/raw/datos_tarjetas.csv
       hash: md5
       md5: 9e197c893925601cd447c81256e8cf07
@@ -18,8 +18,8 @@ stages:
     outs:
     - path: docs/figures/correlation_heatmap_creditos.png
       hash: md5
-      md5: 88112b40dcafe77c30960624367cb7b7
-      size: 58392
+      md5: c261236f9486b6c3017ade2cf97cd0e3
+      size: 77088
     - path: docs/figures/correlation_heatmap_tarjetas.png
       hash: md5
       md5: a58da1be7b3a1ed4b2d928ca90923e65
