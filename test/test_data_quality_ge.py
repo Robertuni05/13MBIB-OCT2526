@@ -54,7 +54,7 @@ def test_great_expectations():
 
     
     # Atributo a analizar: Exactitud (rangos de valores en datos)
-    # Validación 1: Rango de edad (18-100 años)
+    # Validación 1: Rango de edad (18-90 años)
     edad_valida = df_creditos["edad"].between(18, 90).all()
     mensaje_edad = ""
     if not edad_valida:
@@ -78,7 +78,12 @@ def test_great_expectations():
         f"La situación de vivienda no se encuentra en el rango válido. {mensaje_vivienda}"
     )
 
-
+    #############################################################################
+    # TODO: Agregar al menos dos (2) validaciones más para el dataset de tarjetas.
+    # Por ejemplo: rangos de valores para el atrbuto de límite de crédito o el 
+    #               estado_civil o nivel de estudios.
+    ##############################################################################
+    
     #############################################################################
     # VALIDACIONES ADICIONALES PARA EL DATASET DE TARJETAS
     #############################################################################
@@ -162,10 +167,3 @@ def test_great_expectations():
     # El test falla si alguna validación no pasó
     assert results["success"], f"Se encontraron {results['statistics']['total_count'] - results['statistics']['success_count']} validaciones fallidas"
 
-
-
-    #############################################################################
-    # TODO: Agregar al menos dos (2) validaciones más para el dataset de tarjetas.
-    # Por ejemplo: rangos de valores para el atrbuto de límite de crédito o el 
-    #               estado_civil o nivel de estudios.
-    ##############################################################################
