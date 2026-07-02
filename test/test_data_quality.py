@@ -53,6 +53,16 @@ def test_esquema_datos_tarjetas(datos_tarjetas):
     esquema = DataFrameSchema({
         "id_cliente": Column(float, nullable=False),
         # TODO: completar con las columnas del dataset de tarjetas y sus respectivas validaciones
+        "antiguedad_cliente": Column(float, Check.greater_than_or_equal_to(0), nullable=False),
+        "estado_civil": Column(str, nullable=False),
+        "estado_cliente": Column(str, nullable=False),
+        "gastos_ult_12m": Column(float, Check.greater_than_or_equal_to(0), nullable=False),
+        "genero": Column(str, nullable=False),
+        "limite_credito_tc": Column(float, Check.greater_than_or_equal_to(0), nullable=False),
+        "nivel_educativo": Column(str, nullable=False),
+        "nivel_tarjeta": Column(str, nullable=False),
+        "operaciones_ult_12m": Column(float, Check.greater_than_or_equal_to(0), nullable=False),
+        "personas_a_cargo": Column(float, Check.greater_than_or_equal_to(0), nullable=False)
     })
     esquema.validate(datos_tarjetas)
 
@@ -119,3 +129,34 @@ def test_integridad_referencial(datos_creditos, datos_tarjetas):
 # o más validaciones más allá de la estructura del dataset de tarjetas.
 # Por ejemplo: unicidad de IDS en ambos datasets
 ####################################################################
+
+def test_validaciones_negocio_tarjetas(datos_tarjetas):
+    """Prueba validaciones adicionales de negocio sobre el dataset de tarjetas."""
+    df = datos_tarjetas
+
+    # El límite de crédito debe ser mayor o igual al gasto de los últimos 12 meses
+    assert (
+        df["limite_credito_tc"] >= df["gastos_ult_12m"]
+    ).all(), "Existen clientes con gastos de últimos 12 meses mayores al límite de crédito."
+
+    # Las operaciones de los últimos 12 meses no pueden ser negativas
+    assert (
+        df["operaciones_ult_12m"] >= 0
+    ).all(), "Existen clientes con operaciones negativas en los últimos 12 meses."
+
+    # Las personas a cargo deben ser valores enteros, aunque estén almacenadas como float
+    assert (
+        df["personas_a_cargo"] % 1 == 0
+    ).all(), "Existen valores no enteros en personas_a_cargo."
+
+
+def test_unicidad_ids_en_datasets(datos_creditos, datos_tarjetas):
+    """Prueba de unicidad de identificadores de clientes en ambos datasets."""
+    
+    assert datos_creditos["id_cliente"].is_unique, (
+        "Existen id_cliente duplicados en el dataset de créditos."
+    )
+
+    assert datos_tarjetas["id_cliente"].is_unique, (
+        "Existen id_cliente duplicados en el dataset de tarjetas."
+    )
